@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Legal Monitoring System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-balance-scale"></i>
+                    <h1>AI Legal Monitoring System</h1>
+                </div>
+                <div class="header-actions">
+                    <button id="refreshBtn" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <div class="status-indicator">
+                        <span class="status-dot" id="statusDot"></span>
+                        <span id="statusText">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Overview -->
+            <section class="dashboard-section">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="documentsProcessed">0</h3>
+                            <p>Documents Processed</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="activeAlerts">0</h3>
+                            <p>Active Alerts</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="pendingActions">0</h3>
+                            <p>Pending Actions</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3 id="complianceScore">0%</h3>
+                            <p>Compliance Score</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Document Processing -->
+            <section class="dashboard-section">
+                <h2><i class="fas fa-plus-circle"></i> Process New Document</h2>
+                <div class="process-form">
+                    <div class="form-group">
+                        <label for="documentUrl">Document URL:</label>
+                        <input type="url" id="documentUrl" placeholder="https://example.com/legal-document" required>
+                    </div>
+                    <button id="processBtn" class="btn btn-success">
+                        <i class="fas fa-cog"></i> Process Document
+                    </button>
+                </div>
+                <div id="processingResult" class="processing-result" style="display: none;"></div>
+            </section>
+
+            <!-- Recent Documents -->
+            <section class="dashboard-section">
+                <h2><i class="fas fa-history"></i> Recent Documents</h2>
+                <div class="documents-table">
+                    <table id="documentsTable">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Source</th>
+                                <th>Status</th>
+                                <th>Risk Level</th>
+                                <th>Processed Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="documentsTableBody">
+                            <tr>
+                                <td colspan="6" class="loading">Loading documents...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Active Alerts -->
+            <section class="dashboard-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> Active Alerts</h2>
+                <div class="alerts-container" id="alertsContainer">
+                    <div class="loading">Loading alerts...</div>
+                </div>
+            </section>
+
+            <!-- Compliance Recommendations -->
+            <section class="dashboard-section">
+                <h2><i class="fas fa-clipboard-check"></i> Compliance Recommendations</h2>
+                <div class="recommendations-container" id="recommendationsContainer">
+                    <div class="loading">Loading recommendations...</div>
+                </div>
+            </section>
+
+            <!-- Audit Logs -->
+            <section class="dashboard-section">
+                <h2><i class="fas fa-book"></i> Recent Audit Logs</h2>
+                <div class="audit-logs-container" id="auditLogsContainer">
+                    <div class="loading">Loading audit logs...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Document Details -->
+    <div id="documentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Document Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Document details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+</body>
+</html>
